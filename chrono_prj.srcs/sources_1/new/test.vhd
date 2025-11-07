@@ -32,7 +32,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 --use UNISIM.VComponents.all;
 
 entity test is
---  Port ( ); esta es una prueba
+--  Port ( ); esta es una prueba, prueba 2
 end test;
 
 architecture Behavioral of test is
