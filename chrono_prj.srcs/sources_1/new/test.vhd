@@ -37,6 +37,15 @@ end test;
 
 architecture Behavioral of test is
 
+component CLK_DIV
+Port ( 
+       CLK_OUT_AFF : out STD_LOGIC;
+       CLK_OUT_COUNT : out STD_LOGIC);
+end component
+
+signal clk_int, sel__speed_int : STD_LOGIC :='0';
+signal CLK_OUT_AFF_int, CLK_OUT_COUNT_int : STD_LOGIC;
+
 begin
 
 
