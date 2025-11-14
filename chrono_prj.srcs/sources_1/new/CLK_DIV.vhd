@@ -39,7 +39,6 @@ entity CLK_DIV is
 end CLK_DIV;
 
 architecture Behavioral of CLK_DIV is
-
 signal Q_int : unsigned (23 downto 0) := (others => '0'); -- compteur de 0 - 10^7 pour diviser la frequence
 signal clk_out_count_int : std_logic := '0';
 

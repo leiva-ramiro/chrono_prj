@@ -32,21 +32,28 @@ use IEEE.STD_LOGIC_1164.ALL;
 --use UNISIM.VComponents.all;
 
 entity test is
---  Port ( ); esta es una prueba, prueba 2
+--  Port ( ); 
 end test;
 
 architecture Behavioral of test is
 
 component CLK_DIV
-Port ( 
-       CLK_OUT_AFF : out STD_LOGIC;
-       CLK_OUT_COUNT : out STD_LOGIC);
-end component
+Port (      CLK_IN : in STD_LOGIC;
+           SEL_SPEED_CLK : in STD_LOGIC;
+           CLK_OUT_AFF : out STD_LOGIC;
+           CLK_OUT_COUNT : out STD_LOGIC);
+end component;
 
-signal clk_int, sel__speed_int : STD_LOGIC :='0';
-signal CLK_OUT_AFF_int, CLK_OUT_COUNT_int : STD_LOGIC;
+signal clk_int : STD_LOGIC :='0';
+signal sel_speed_int : STD_LOGIC :='0';
 
 begin
 
+clk_div_1 : CLK_DIV
+port map (CLK_IN => clk_int , SEL_SPEED_CLK => sel_speed_int );
 
+    clk_int <= not clk_int after 10 ns;
+    sel_speed_int <= '1';
+    
+    
 end Behavioral;
