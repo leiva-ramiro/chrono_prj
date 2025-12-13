@@ -3,7 +3,7 @@
 -- Engineer: Radu et Ramiro
 -- 
 -- Create Date: 14.11.2025 17:55:16
--- Design Name: 
+-- Design Name: Clock
 -- Module Name: CLK_DIV - Behavioral
 -- Project Name: chrono_prj
 -- Target Devices: 
@@ -31,6 +31,13 @@ use IEEE.NUMERIC_STD.ALL;
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
+-- Signals :
+--           CLK_IN        : Horloge d'entrée 100 MHz
+--           CLK_OUT_COUNT : Comptage de diziemes de secondes : 10 Hz 
+--           SEL_SPEED_CLK : Switch de selection pour une frequence plus rapide : (T_sel = 1.67ms) T/60 . 1 minute en 1 seconde
+--           CLK_OUT_AFF   : Horloge pour l'affichage sur les afficheurs 7 segments 
+
+
 entity CLK_DIV is
     Port ( CLK_IN : in STD_LOGIC;
            SEL_SPEED_CLK : in STD_LOGIC;
@@ -39,28 +46,61 @@ entity CLK_DIV is
 end CLK_DIV;
 
 architecture Behavioral of CLK_DIV is
-signal Q_int : unsigned (23 downto 0) := (others => '0'); -- compteur de 0 - 10^7 pour diviser la frequence
-signal clk_out_count_int : std_logic := '0';
+
+-- Signaux pour le comptage de fronts pour diviser la frequence
+
+-- Il faut au moins 24 bits pour compter jusqu'a 100 000 000 
+-- La valeur max du comptage a ete calculé en faisant le rapport de la periode de sortie sur la periode d'entree 
+signal Q_int_clk_lent : unsigned (23 downto 0) := (others => '0'); -- compteur de 0 - 10^7/2 pour diviser la frequence : 10 Hz,0,1s
+signal Q_int_clk_rapide : unsigned (17 downto 0) := (others => '0'); -- compteur de 0 - 167 000/2 pour avoir une frequence 60 plus vite : 600 Hz, 1,67ms 
+signal Q_int_clk_aff : unsigned (18 downto 0) := (others => '0'); -- compteur de 0 - 
+signal clk_out_count_int : std_logic := '0'; 
+signal clk_out_count_int_aff : std_logic := '0'; --8ms
 
 begin
+
+
+-- On ne peut pas lire un signal de sortie, alors il faut passer par une varibale de buffer
+    CLK_OUT_COUNT <= clk_out_count_int;
+    CLK_OUT_AFF <= clk_out_count_int_aff;
 
 -- Process du comptage de 0 a 10^7 - 1 pour avoir 10 Hz
     process(CLK_IN,SEL_SPEED_CLK)
         begin
-        if SEL_SPEED_CLK = '0' then 
-            Q_int <= (others => '0');
-            clk_out_count_int <= '0';
-        elsif rising_edge (CLK_IN) then 
-            if Q_int = 9999999 then
-                Q_int <= (others => '0');
-                clk_out_count_int <= not clk_out_count_int;
-            else
-                Q_int <= Q_int + 1; 
+        if(SEL_SPEED_CLK = '0') then 
+            if(rising_edge(CLK_IN)) then           
+                if Q_int_clk_lent = 5000000 then -- valeur du comptage max
+                     Q_int_clk_lent <= (others => '0'); -- reset du compteur 
+                    clk_out_count_int <= not clk_out_count_int; -- toggle du signal int
+                else
+                    Q_int_clk_lent <= Q_int_clk_lent + 1; -- sinon, on continue a compter 
+                end if;
+            end if;
+        else
+            if(rising_edge (CLK_IN)) then
+                if Q_int_clk_rapide = 83612 then -- valeur du comptage max
+                    Q_int_clk_rapide <= (others => '0'); -- reset du compteur 
+                    clk_out_count_int <= not clk_out_count_int; -- toggle du signal int
+                else
+                    Q_int_clk_rapide <= Q_int_clk_rapide + 1; -- sinon, on continue a compter 
+                end if;
             end if;
         end if;
     end process;
     
-    CLK_OUT_COUNT <= clk_out_count_int;
-
-
+    -- Pour ne pas avoir de la persistence retinienne il faut une periode d'affichage de 1-16ms par afficheur, 
+    -- donc si on a 4 afficheurs il faut 4 fois la periode choisi. 
+    
+    process (CLK_IN) 
+    begin
+    if(rising_edge(CLK_IN)) then           
+        if Q_int_clk_aff = 400000 then -- 8ms
+            Q_int_clk_aff <= (others => '0'); -- reset du compteur 
+            clk_out_count_int_aff <= not clk_out_count_int_aff; -- toggle du signal int
+        else 
+            Q_int_clk_aff <= Q_int_clk_aff + 1;
+        end if;
+    end if; 
+    end process; 
+    
 end Behavioral;
