@@ -2,9 +2,9 @@
 -- Company: 
 -- Engineer: 
 -- 
--- Create Date: 07.11.2025 12:14:23
+-- Create Date: 17.10.2025 11:34:02
 -- Design Name: 
--- Module Name: tb_test - Behavioral
+-- Module Name: mux - Behavioral
 -- Project Name: 
 -- Target Devices: 
 -- Tool Versions: 
@@ -31,13 +31,34 @@ use IEEE.STD_LOGIC_1164.ALL;
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
-entity tb_test is
---  Port ( );
-end tb_test;
+entity mux is
+    Port ( A : in STD_LOGIC;
+           B : in STD_LOGIC;
+           C : in STD_LOGIC;
+           D : in STD_LOGIC;
+           E : in STD_LOGIC;
+           F : in STD_LOGIC;
+           G : in STD_LOGIC;
+           H : in STD_LOGIC;
+           sel : in STD_LOGIC_VECTOR (2 downto 0);
+           Y : out STD_LOGIC);
+end mux;
 
-architecture Behavioral of tb_test is
+architecture Behavioral of mux is
 
 begin
 
+    with sel select 
+    
+    Y <= A when "000",
+         B when "001",
+         C when "010",
+         D when "100",
+         E when "101", 
+         F when "110",
+         G when "101",
+         H when "111",
+         'X' when others; // si on a pas ca ce pas de combinatoire
+       
 
 end Behavioral;

@@ -5,3 +5,9 @@
 *.sim/
 *.runs/
 *.xpr/
+*.Xil/
+# Vivado generated temporary files 
+*.str
+*.log
+*.jou
+

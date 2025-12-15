@@ -2,9 +2,9 @@
 -- Company: 
 -- Engineer: 
 -- 
--- Create Date: 07.11.2025 12:12:33
+-- Create Date: 17.10.2025 11:50:40
 -- Design Name: 
--- Module Name: test - Behavioral
+-- Module Name: reg1 - Behavioral
 -- Project Name: 
 -- Target Devices: 
 -- Tool Versions: 
@@ -31,13 +31,16 @@ use IEEE.STD_LOGIC_1164.ALL;
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
-entity test is
---  Port ( ); esta es una prueba, prueba 2
-end test;
+entity reg1 is
+    Port ( d : in STD_LOGIC;
+           clk : in STD_LOGIC;
+           q : out STD_LOGIC);
+end reg1;
 
-architecture Behavioral of test is
+architecture Behavioral of reg1 is
 
 begin
 
+q <= d when rising_edge(clk);
 
 end Behavioral;
