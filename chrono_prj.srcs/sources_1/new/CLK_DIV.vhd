@@ -67,23 +67,21 @@ begin
 -- Process du comptage de 0 a 10^7 - 1 pour avoir 10 Hz
     process(CLK_IN)
         begin
-        if(SEL_SPEED_CLK = '0') then 
-            if(rising_edge(CLK_IN)) then           
+        if(rising_edge(CLK_IN)) then 
+            if (SEL_SPEED_CLK = '0') then -- Choix de la frequence lente
                 if Q_int_clk_lent = 4999999 then -- valeur du comptage max de 0 a 4 999 999 pour generer le sigal carré. 
-                     Q_int_clk_lent <= (others => '0'); -- reset du compteur 
+                    Q_int_clk_lent <= (others => '0'); -- reset du compteur 
                     clk_out_count_int <= not clk_out_count_int; -- toggle du signal int
                 else
                     Q_int_clk_lent <= Q_int_clk_lent + 1; -- sinon, on continue a compter 
                 end if;
             end if;
         else
-            if(rising_edge (CLK_IN)) then
-                if Q_int_clk_rapide = 83335 then -- valeur du comptage max 0.1/60 pour une horloge 60 fois plus rapide
-                    Q_int_clk_rapide <= (others => '0'); -- reset du compteur 
-                    clk_out_count_int <= not clk_out_count_int; -- toggle du signal int
-                else
-                    Q_int_clk_rapide <= Q_int_clk_rapide + 1; -- sinon, on continue a compter 
-                end if;
+            if Q_int_clk_rapide = 83335 then -- valeur du comptage max 0.1/60 pour une horloge 60 fois plus rapide
+                Q_int_clk_rapide <= (others => '0'); -- reset du compteur 
+                clk_out_count_int <= not clk_out_count_int; -- toggle du signal int
+            else
+                Q_int_clk_rapide <= Q_int_clk_rapide + 1; -- sinon, on continue a compter 
             end if;
         end if;
     end process;
@@ -94,7 +92,7 @@ begin
     process (CLK_IN) 
     begin
     if(rising_edge(CLK_IN)) then           
-        if Q_int_clk_aff = 1000000 then -- 2ms
+        if Q_int_clk_aff = 1000000 then -- 2ms / 8ms pour les 4 afficheurs
             Q_int_clk_aff <= (others => '0'); -- reset du compteur 
             clk_out_count_int_aff <= not clk_out_count_int_aff; -- toggle du signal int
         else 

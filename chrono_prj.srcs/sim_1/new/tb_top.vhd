@@ -110,5 +110,18 @@ sel_speed_int <= '1'; -- '1' : cela active le mode rapide dans CLK_DIV (83612 cy
 --OUT_UNIT_MIN_int <= "0011"; -- Affiche 3 sur AN2
 --OUT_DIZ_MIN_int  <= "0100"; -- Affiche 4 sur AN3
 
+-- *****************************
+--      Verif Ramiro 
+--****************************
+
+-- Creation d'un reset de 50ns au début de la simulation
+    process
+    begin
+        -- Initial reset
+        RESET_int <= '1';
+        wait for 50 ns;
+        RESET_int <= '0';
+    end process;
+
 
 end Behavioral;
