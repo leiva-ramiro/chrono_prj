@@ -69,7 +69,7 @@ begin
         begin
         if(SEL_SPEED_CLK = '0') then 
             if(rising_edge(CLK_IN)) then           
-                if Q_int_clk_lent = 4999999 then -- valeur du comptage max de 0 a 4 999 999, diviseur de frequence : 10ns/
+                if Q_int_clk_lent = 4999999 then -- valeur du comptage max de 0 a 4 999 999 pour generer le sigal carré. 
                      Q_int_clk_lent <= (others => '0'); -- reset du compteur 
                     clk_out_count_int <= not clk_out_count_int; -- toggle du signal int
                 else
@@ -78,7 +78,7 @@ begin
             end if;
         else
             if(rising_edge (CLK_IN)) then
-                if Q_int_clk_rapide = 83612 then -- valeur du comptage max
+                if Q_int_clk_rapide = 83335 then -- valeur du comptage max 0.1/60 pour une horloge 60 fois plus rapide
                     Q_int_clk_rapide <= (others => '0'); -- reset du compteur 
                     clk_out_count_int <= not clk_out_count_int; -- toggle du signal int
                 else
