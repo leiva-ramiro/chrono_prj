@@ -104,5 +104,3 @@ begin
     end process; 
     
 end Behavioral;
-
-JOSIAS KOFFI 
