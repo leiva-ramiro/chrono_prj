@@ -94,7 +94,7 @@ begin
     process (CLK_IN) 
     begin
     if(rising_edge(CLK_IN)) then           
-        if Q_int_clk_aff = 400000 then -- 8ms
+        if Q_int_clk_aff = 1000000 then -- 2ms
             Q_int_clk_aff <= (others => '0'); -- reset du compteur 
             clk_out_count_int_aff <= not clk_out_count_int_aff; -- toggle du signal int
         else 

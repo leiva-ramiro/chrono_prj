@@ -17,7 +17,7 @@ component top is Port(
          --E/S component clock 
          CLK_IN : in STD_LOGIC;
          SEL_SPEED_CLK : in STD_LOGIC;
-         CLK_OUT_AFF : out STD_LOGIC;
+         --CLK_OUT_AFF : out STD_LOGIC;
          --CLK_OUT_COUNT : out STD_LOGIC; Gere en interne dans le top 
          
          -- E/S component Comptage
@@ -80,7 +80,7 @@ begin
 
 chronometre : top port map (CLK_IN => clk_int, 
                             SEL_SPEED_CLK => sel_speed_int, 
-                            CLK_OUT_AFF => clk_out_aff_s, 
+                            --CLK_OUT_AFF => clk_out_aff_s, 
                             CE => CE_int, RESET => RESET_int, 
                             TC => TC_int, LED_OUT => LED_OUT_int, 
                             --OUT_DIZ_MIN => OUT_DIZ_MIN_int, 
