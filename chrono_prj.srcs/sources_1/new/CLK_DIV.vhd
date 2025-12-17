@@ -65,11 +65,11 @@ begin
     CLK_OUT_AFF <= clk_out_count_int_aff;
 
 -- Process du comptage de 0 a 10^7 - 1 pour avoir 10 Hz
-    process(CLK_IN,SEL_SPEED_CLK)
+    process(CLK_IN)
         begin
         if(SEL_SPEED_CLK = '0') then 
             if(rising_edge(CLK_IN)) then           
-                if Q_int_clk_lent = 5000000 then -- valeur du comptage max
+                if Q_int_clk_lent = 4999999 then -- valeur du comptage max
                      Q_int_clk_lent <= (others => '0'); -- reset du compteur 
                     clk_out_count_int <= not clk_out_count_int; -- toggle du signal int
                 else
