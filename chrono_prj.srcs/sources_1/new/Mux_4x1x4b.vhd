@@ -20,9 +20,9 @@ end Mux_4x1x4b;
 architecture Behavioral of Mux_4x1x4b is
 begin
     with sel select
-        O <= A when "00", -- Affiche les unités de secondes (AN0)
-             B when "01", -- Affiche les dizaines de secondes (AN1)
-             C when "10", -- Affiche les unités de minutes (AN2)
-             D when "11", -- Affiche les dizaines de minutes (AN3)
-             "0000" when others; -- Sécurité obligatoire en VHDL (couvre les états indéfinis)
+        O <= A when "00", -- Affiche les unites de secondes
+             B when "01", -- Affiche les dizaines de secondes
+             C when "10", -- Affiche les unites de minutes
+             D when "11", -- Affiche les dizaines de minutes
+             "0000" when others; -- Securite qui couvre les etats indefinis
 end Behavioral;
