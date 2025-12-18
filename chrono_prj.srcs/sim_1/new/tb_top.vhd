@@ -124,6 +124,7 @@ clk_int <= not clk_int after 5 ns;
         CE_int    <= '1';
         sel_speed_int <= '1'; -- '1' : cela active le mode rapide dans CLK_DIV 
 
+        wait;
     end process;
 
 
