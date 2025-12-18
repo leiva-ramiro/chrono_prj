@@ -1,3 +1,5 @@
+-- Code du counter dixieme
+
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.NUMERIC_STD.ALL;
@@ -11,7 +13,7 @@ entity Counter_dixieme_RE is
 end Counter_dixieme_RE;
 
 architecture Behavioral of Counter_dixieme_RE is
-    signal LED_OUT1 : unsigned (9 downto 0) := (others => '0');
+    signal LED_OUT1 : unsigned (9 downto 0) := "0000000001";
     signal TC1 : STD_LOGIC := '0';
 begin
 
@@ -26,11 +28,11 @@ begin
             -- Comportement synchrone sur front montant
             if CE = '1' then
                 TC1 <= '0';  -- Par défaut, TC à 0
-                if LED_OUT1 = "0000000000" then
-                    LED_OUT1 <= LED_OUT1 + 1;
-                elsif LED_OUT1 = "1000000000" then
+--                if LED_OUT1 = "0000000000" then
+--                    LED_OUT1 <= LED_OUT1 + 1;
+                if LED_OUT1 = "1000000000" then
                     -- Retour à 0 et génération du Terminal Count
-                    LED_OUT1 <= (others => '0');
+                    LED_OUT1 <= "0000000001";
                     TC1 <= '1';
                 else
                     -- Incrémentation normale
