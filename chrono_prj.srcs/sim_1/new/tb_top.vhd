@@ -122,7 +122,7 @@ clk_int <= not clk_int after 5 ns;
         wait for 50 ns;
         RESET_int <= '0';
         CE_int    <= '1';
-        sel_speed_int <= '1'; -- '1' : cela active le mode rapide dans CLK_DIV (83612 cycles au lieu de 5 millions)
+        sel_speed_int <= '1'; -- '1' : cela active le mode rapide dans CLK_DIV 
 
     end process;
 
