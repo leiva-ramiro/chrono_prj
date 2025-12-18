@@ -98,8 +98,7 @@ chronometre : top port map (CLK_IN => clk_int,
 clk_int <= not clk_int after 5 ns; 
 
 -- 2. Paramètres de contrôle
-CE_int    <= '1';
-sel_speed_int <= '1'; -- '1' : cela active le mode rapide dans CLK_DIV (83612 cycles au lieu de 5 millions)
+
 
 -- 3. Initialisation reset
 --RESET_int <= '1', '0' after 100 ns;
@@ -114,13 +113,17 @@ sel_speed_int <= '1'; -- '1' : cela active le mode rapide dans CLK_DIV (83612 cy
 --      Verif Ramiro 
 --****************************
 
--- Creation d'un reset de 50ns au début de la simulation
     process
     begin
         -- Initial reset
         RESET_int <= '1';
+        CE_int    <= '0';
+
         wait for 50 ns;
         RESET_int <= '0';
+        CE_int    <= '1';
+        sel_speed_int <= '1'; -- '1' : cela active le mode rapide dans CLK_DIV (83612 cycles au lieu de 5 millions)
+
     end process;
 
 

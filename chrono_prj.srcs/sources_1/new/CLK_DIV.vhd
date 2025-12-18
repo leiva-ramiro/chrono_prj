@@ -75,14 +75,14 @@ begin
                 else
                     Q_int_clk_lent <= Q_int_clk_lent + 1; -- sinon, on continue a compter 
                 end if;
-            end if;
-        else
-            if Q_int_clk_rapide = 83335 then -- valeur du comptage max 0.1/60 pour une horloge 60 fois plus rapide
-                Q_int_clk_rapide <= (others => '0'); -- reset du compteur 
-                clk_out_count_int <= not clk_out_count_int; -- toggle du signal int
             else
-                Q_int_clk_rapide <= Q_int_clk_rapide + 1; -- sinon, on continue a compter 
-            end if;
+                if Q_int_clk_rapide = 83335 then -- valeur du comptage max 0.1/60 pour une horloge 60 fois plus rapide
+                    Q_int_clk_rapide <= (others => '0'); -- reset du compteur 
+                    clk_out_count_int <= not clk_out_count_int; -- toggle du signal int
+                else
+                    Q_int_clk_rapide <= Q_int_clk_rapide + 1; -- sinon, on continue a compter 
+                end if;
+            end if; 
         end if;
     end process;
     
