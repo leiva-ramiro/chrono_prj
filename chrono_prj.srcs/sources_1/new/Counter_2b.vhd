@@ -5,7 +5,7 @@ use IEEE.NUMERIC_STD.ALL;
 -- Ici je déclare tous mes entrées sorties de Compteur_2b et Transcodeur anodes
 entity Counter_2b is
     Port ( RESET : in STD_LOGIC; -- sert à réinitialiser mon compteur immédiatement, peu importe l'horloge
-           CLK : in STD_LOGIC;  -- c'est l'horloge, sert à aux circuits séquentiels de se mettre à jour
+           CLK : in STD_LOGIC;  -- c'est l'horloge
            OUTPUT : out STD_LOGIC_VECTOR(1 downto 0)); -- J'utilise STD_LOGIC_VECTOR car quand on plusieurs bit on utilise ça 
 end Counter_2b;
 
