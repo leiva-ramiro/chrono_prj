@@ -2,7 +2,7 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.NUMERIC_STD.ALL;
 
--- Ici je déclare tous mes entrées sorties de Compteur_2b et Transcodeur anodes
+-- Ici je déclare tous mes entrées sorties de Compteur_2b 
 entity Counter_2b is
     Port ( RESET : in STD_LOGIC; -- sert à réinitialiser mon compteur immédiatement, peu importe l'horloge
            CLK : in STD_LOGIC;  -- c'est l'horloge
